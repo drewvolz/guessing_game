@@ -1,6 +1,7 @@
 use rand::Rng;
 use std::cmp::Ordering;
 use std::io;
+use std::io::Write;
 
 fn main() {
     println!("Guess the number between 1 and 100!");
@@ -8,7 +9,8 @@ fn main() {
     let mut prev_guess = None;
 
     loop {
-        println!("Please input your guess.");
+        print!("Please input your guess: ");
+        io::stdout().flush().unwrap();
 
         let mut guess = String::new();
         io::stdin()
