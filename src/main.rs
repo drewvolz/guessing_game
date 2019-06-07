@@ -3,7 +3,21 @@ use std::cmp::Ordering;
 use std::io;
 use std::io::Write;
 
-fn main() {
+#[macro_use]
+extern crate clap;
+
+fn parse_help() {
+    let name = env!("CARGO_PKG_NAME");
+    let version = env!("CARGO_PKG_VERSION");
+    let description = env!("CARGO_PKG_DESCRIPTION");
+
+    let _matches = clap_app!((name) =>
+        (version: version)
+        (about: description)
+    ).get_matches();
+}
+
+fn start_game() {
     println!("Guess the number between 1 and 100!");
     let secret_number = rand::thread_rng().gen_range(1, 101);
     let mut prev_guess = None;
@@ -37,4 +51,9 @@ fn main() {
         }
         println!();
     }
+}
+
+fn main() {
+    parse_help();
+    start_game();
 }

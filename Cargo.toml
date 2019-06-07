@@ -1,5 +1,6 @@
 [package]
 name = "guessing_game"
+description = "a number guessing game"
 version = "0.1.0"
 authors = ["Drew Volz <volz.drew@gmail.com>"]
 edition = "2018"
