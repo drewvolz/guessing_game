@@ -20,7 +20,7 @@ fn parse_help() {
     .get_matches();
 }
 
-fn finish_game(guesses: u8) {
+fn finish_game(guesses: u32) {
     if guesses == 1 {
         println!("You win! And on the first try, too!")
     } else {
@@ -48,7 +48,7 @@ fn start_game() {
     println!("Guess the number between 1 and 100!");
     let secret_number = rand::thread_rng().gen_range(1, 101);
     let mut prev_guess = None;
-    let mut guesses = 0;
+    let mut guesses: u32 = 0;
 
     loop {
         print!("Please input your guess: ");
