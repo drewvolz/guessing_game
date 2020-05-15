@@ -20,8 +20,12 @@ fn parse_help() {
     .get_matches();
 }
 
-fn finish_game() {
-    println!("You win!");
+fn finish_game(guesses: u8) {
+    if guesses == 1 {
+        println!("You win! And on the first try, too!")
+    } else {
+        println!("You win! You guessed {} times.", guesses);
+    }
 
     loop {
         print!("Play again? [y/n] [yes/no]: ");
@@ -44,6 +48,7 @@ fn start_game() {
     println!("Guess the number between 1 and 100!");
     let secret_number = rand::thread_rng().gen_range(1, 101);
     let mut prev_guess = None;
+    let mut guesses = 0;
 
     loop {
         print!("Please input your guess: ");
@@ -59,13 +64,15 @@ fn start_game() {
             Err(_) => continue,
         };
 
+        guesses = guesses + 1;
+
         if Some(guess) == prev_guess {
             println!("Doubling down on that last one?");
         } else {
             match guess.cmp(&secret_number) {
                 Ordering::Less => println!("Too small!"),
                 Ordering::Greater => println!("Too big!"),
-                Ordering::Equal => finish_game(),
+                Ordering::Equal => finish_game(guesses),
             }
             prev_guess = Some(guess);
         }
