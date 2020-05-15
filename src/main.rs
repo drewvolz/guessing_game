@@ -19,6 +19,26 @@ fn parse_help() {
     )
     .get_matches();
 }
+
+fn finish_game() {
+    print!("You win! Play again? [y/n] [yes/no]: ");
+    io::stdout().flush().unwrap();
+
+    let mut prompt = String::new();
+    io::stdin()
+        .read_line(&mut prompt)
+        .expect("Failed to read line.");
+
+    let continue_or_quit = prompt.trim().to_lowercase();
+
+    match continue_or_quit.as_str() {
+        "yes" | "y" => start_game(),
+        "no" | "n" => process::exit(0),
+        _ => {
+            println!("You sneezed! Looks like you get to play again.");
+            start_game()
+        }
+    }
 }
 
 fn start_game() {
@@ -46,10 +66,7 @@ fn start_game() {
             match guess.cmp(&secret_number) {
                 Ordering::Less => println!("Too small!"),
                 Ordering::Greater => println!("Too big!"),
-                Ordering::Equal => {
-                    println!("You win!");
-                    break;
-                }
+                Ordering::Equal => finish_game(),
             }
             prev_guess = Some(guess);
         }
