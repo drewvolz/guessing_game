@@ -1,7 +1,9 @@
 use rand::Rng;
 use std::cmp::Ordering;
+use std::error::Error;
 use std::io;
 use std::io::Write;
+use std::process;
 
 #[macro_use]
 extern crate clap;
@@ -53,7 +55,15 @@ fn start_game() {
     }
 }
 
-fn main() {
+fn run() -> Result<(), Box<dyn Error>> {
     parse_help();
     start_game();
+    Ok(())
+}
+
+fn main() {
+    if let Err(err) = run() {
+        println!("error running guessing_game: {}", err);
+        process::exit(1);
+    }
 }
