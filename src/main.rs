@@ -16,7 +16,9 @@ fn parse_help() {
     let _matches = clap_app!((name) =>
         (version: version)
         (about: description)
-    ).get_matches();
+    )
+    .get_matches();
+}
 }
 
 fn start_game() {
@@ -51,7 +53,6 @@ fn start_game() {
             }
             prev_guess = Some(guess);
         }
-        println!();
     }
 }
 
