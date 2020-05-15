@@ -21,22 +21,21 @@ fn parse_help() {
 }
 
 fn finish_game() {
-    print!("You win! Play again? [y/n] [yes/no]: ");
-    io::stdout().flush().unwrap();
+    println!("You win!");
 
-    let mut prompt = String::new();
-    io::stdin()
-        .read_line(&mut prompt)
-        .expect("Failed to read line.");
+    loop {
+        print!("Play again? [y/n] [yes/no]: ");
+        io::stdout().flush().unwrap();
 
-    let continue_or_quit = prompt.trim().to_lowercase();
+        let mut continue_or_quit = String::new();
+        io::stdin()
+            .read_line(&mut continue_or_quit)
+            .expect("Failed to read line.");
 
-    match continue_or_quit.as_str() {
-        "yes" | "y" => start_game(),
-        "no" | "n" => process::exit(0),
-        _ => {
-            println!("You sneezed! Looks like you get to play again.");
-            start_game()
+        match continue_or_quit.to_lowercase().trim() {
+            "yes" | "y" => start_game(),
+            "no" | "n" => process::exit(0),
+            _ => continue,
         }
     }
 }
